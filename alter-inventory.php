@@ -81,7 +81,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 							global $woocommerce;
 							?>
 							<style>
-								#reviews {display:none}
+								#reviews {}
 							</style>
 							<table width="100%" style="border: 1px solid #000; width: 100%;" cellspacing="0" cellpadding="2">
 								<thead>
