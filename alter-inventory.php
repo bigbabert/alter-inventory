@@ -63,7 +63,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				
 				// Admin
 				add_action( 'woocommerce_settings_image_options_after', array( $this, 'admin_settings' ), 20);
-				add_action( 'woocommerce_update_options_inventory', array( $this, 'save_admin_settings' ) );
+				add_action( 'woocommerce_update_options_inventory', array( $this, 'woocommerce_update_option' ) );
 				
 			}
 			
@@ -185,7 +185,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			}
 
 			// Save the settings
-			function save_admin_settings() {
+			function woocommerce_update_option() {
 				woocommerce_update_options( $this->settings );
 			}
 			
