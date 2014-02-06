@@ -79,11 +79,126 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 						}
 						else {
 							global $woocommerce;
+							function woocommerce_admin_product_search( $wp ) {
+    global $pagenow, $wpdb;
+
+	if( 'edit.php' != $pagenow ) return;
+	if( !isset( $wp->query_vars['s'] ) ) return;
+	if ($wp->query_vars['post_type']!='product') return;
+
+	if( '#' == substr( $wp->query_vars['s'], 0, 1 ) ) :
+
+		$id = absint( substr( $wp->query_vars['s'], 1 ) );
+
+		if( !$id ) return;
+
+		unset( $wp->query_vars['s'] );
+		$wp->query_vars['p'] = $id;
+
+	elseif( 'SKU:' == strtoupper( substr( $wp->query_vars['s'], 0, 4 ) ) ) :
+
+		$sku = trim( substr( $wp->query_vars['s'], 4 ) );
+
+		if( !$sku ) return;
+
+		$ids = $wpdb->get_col( 'SELECT post_id FROM ' . $wpdb->postmeta . ' WHERE meta_key="_sku" AND meta_value LIKE "%' . $sku . '%";' );
+
+		if ( ! $ids ) return;
+
+		unset( $wp->query_vars['s'] );
+		$wp->query_vars['post__in'] = $ids;
+		$wp->query_vars['sku'] = $sku;
+
+	endif;
+}
+
+
+/**
+ * Label for the search by ID/SKU feature
+ *
+ * @access public
+ * @param mixed $query
+ * @return void
+ */
+function woocommerce_admin_product_search_label($query) {
+	global $pagenow, $typenow, $wp;
+
+    if ( 'edit.php' != $pagenow ) return $query;
+    if ( $typenow!='product' ) return $query;
+
+	$s = get_query_var( 's' );
+	if ($s) return $query;
+
+	$sku = get_query_var( 'sku' );
+	if($sku) {
+		$post_type = get_post_type_object($wp->query_vars['post_type']);
+		return sprintf(__( '[%s with SKU of %s]', 'woocommerce' ), $post_type->labels->singular_name, $sku);
+	}
+
+	$p = get_query_var( 'p' );
+	if ($p) {
+		$post_type = get_post_type_object($wp->query_vars['post_type']);
+		return sprintf(__( '[%s with ID of %d]', 'woocommerce' ), $post_type->labels->singular_name, $p);
+	}
+
+	return $query;
+}
+
+if ( is_admin() ) {
+	add_action( 'parse_request', 'woocommerce_admin_product_search' );
+	add_filter( 'get_search_query', 'woocommerce_admin_product_search_label' );
+}
+
+
 							?>
 							<style>
 								#reviews {}
 							</style>
+							
+							<h2>VARIANTI</h2>
 							<table width="100%" style="border: 1px solid #000; width: 100%;" cellspacing="0" cellpadding="2">
+								<thead >
+									<tr>
+										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;""><?php _e('VARIANTE', 'woothemes'); ?></th>
+										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRODOTTO', 'woothemes'); ?></th>
+										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'woothemes'); ?></th>
+                                        <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRICE', 'woothemes'); ?></th>
+										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('STOCK', 'woothemes'); ?></th>
+									</tr>
+								</thead>
+								<tbody>
+								<?php
+								$args = array(
+									'post_type'         => 'product_variation',
+									'post_status'       => 'publish',
+									'posts_per_page'    => -1,
+									'orderby'           => 'title',
+									'order'             => 'ASC',
+									'meta_query'        => array(
+																array(
+																	'key'   => '_stock',
+																	'value' => array('', false, null),
+																	'compare' => 'NOT IN'
+																)
+															)
+								);
+								$loop = new WP_Query( $args );
+								while ( $loop->have_posts() ) : $loop->the_post();
+									$product = new WC_Product_Variation( $loop->post->ID );
+								?>
+									<tr>
+										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->get_title(); ?></td>
+										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo get_the_title( $loop->post->post_parent ); ?></td>
+										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>
+                                        <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->price; ?></td>
+										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->stock; ?></td>
+									</tr>
+								<?php
+								endwhile;
+								?>
+								</tbody>
+							</table>
+                            <table width="100%" style="border: 1px solid #000; width: 100%;" cellspacing="0" cellpadding="2">
 								<thead>
 									<tr>
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRODOTTI', 'woothemes'); ?></th>
@@ -127,49 +242,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 									<?php
 									endwhile;
 									?>
-								</tbody>
-							</table>
-							<h2>VARIANTI</h2>
-							<table width="100%" style="border: 1px solid #000; width: 100%;" cellspacing="0" cellpadding="2">
-								<thead >
-									<tr>
-										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;""><?php _e('VARIANTE', 'woothemes'); ?></th>
-										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRODOTTO', 'woothemes'); ?></th>
-										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'woothemes'); ?></th>
-                                        <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRICE', 'woothemes'); ?></th>
-										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('STOCK', 'woothemes'); ?></th>
-									</tr>
-								</thead>
-								<tbody>
-								<?php
-								$args = array(
-									'post_type'         => 'product_variation',
-									'post_status'       => 'publish',
-									'posts_per_page'    => -1,
-									'orderby'           => 'title',
-									'order'             => 'ASC',
-									'meta_query'        => array(
-																array(
-																	'key'   => '_stock',
-																	'value' => array('', false, null),
-																	'compare' => 'NOT IN'
-																)
-															)
-								);
-								$loop = new WP_Query( $args );
-								while ( $loop->have_posts() ) : $loop->the_post();
-									$product = new WC_Product_Variation( $loop->post->ID );
-								?>
-									<tr>
-										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->get_title(); ?></td>
-										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo get_the_title( $loop->post->post_parent ); ?></td>
-										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>
-                                        <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->price; ?></td>
-										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->stock; ?></td>
-									</tr>
-								<?php
-								endwhile;
-								?>
 								</tbody>
 							</table>
 					<?php	
