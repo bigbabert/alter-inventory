@@ -38,17 +38,17 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					),
 					array(
 						'name' => __( 'alter inventory', 'woocommerce-alter-inventory' ),
-						'desc' => __( 'Enable alter inventory', 'woocommerce-alter-inventory' ),
+						'desc' => __( 'Abilita alter inventory', 'woocommerce-alter-inventory' ),
 						'id' => 'alterinventory_enable',
 						'type' => 'checkbox'
 					),
 					array(
-						'name'     => __( 'Error Message', 'woocommerce-alter-inventory' ),
-						'desc_tip' => __( 'Enter the error message you want to show to any unauthorized visitors that should try opening the inventory page.', 'woocommerce-alter-inventory' ),
+						'name'     => __( 'Messaggio di Errore', 'woocommerce-alter-inventory' ),
+						'desc_tip' => __( 'Inserisci il Messaggio di Errore, sarà mostrato a tutti gli utentisenza autorizzazione per vedere inventory.', 'woocommerce-alter-inventory' ),
 						'id'       => 'alterinventory_error_message',
 						'type'     => 'textarea',
 						'css'      => 'min-width:400px;',
-						'desc'     => __( 'Enter your error message', 'woocommerce-alter-inventory' ),
+						'desc'     => __( 'Inserisci il tuo Messaggio di Errore', 'woocommerce-alter-inventory' ),
 					),
 					array(
 						'type' => 'sectionend',
@@ -88,6 +88,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 									<tr>
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRODOTTI', 'woothemes'); ?></th>
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'woothemes'); ?></th>
+                                        <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRICE', 'woothemes'); ?></th>
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('STOCK', 'woothemes'); ?></th>
 									</tr>
 								</thead>
@@ -120,7 +121,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 									?>
 										<tr>
 											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->get_title(); ?></td>
-											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>
+											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->price; ?></td>
 											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->stock; ?></td>
 										</tr>
 									<?php
@@ -135,6 +136,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;""><?php _e('VARIANTE', 'woothemes'); ?></th>
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRODOTTO', 'woothemes'); ?></th>
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'woothemes'); ?></th>
+                                        <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRICE', 'woothemes'); ?></th>
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('STOCK', 'woothemes'); ?></th>
 									</tr>
 								</thead>
@@ -162,6 +164,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->get_title(); ?></td>
 										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo get_the_title( $loop->post->post_parent ); ?></td>
 										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>
+                                        <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->price; ?></td>
 										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->stock; ?></td>
 									</tr>
 								<?php
