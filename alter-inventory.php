@@ -79,15 +79,15 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 						else {
 							global $woocommerce;
 							
+							
 
 ?>
 
 
-
-<h2>CERCA PRODOTTI</h2>
+<div align="right">
 <form id="posts-filter" method="get" action="http://www.dev.web.altertech.it/pinup/">
 <p class="search-box">
-<label class="screen-reader-text" for="post-search-input">Cerca Prodotti:</label>
+<label class="screen-reader-text" for="post-search-input"></label>
 <input id="post-search-input" type="search" value="" name="s">
 <input id="search-submit" class="button" type="submit" value="Cerca Prodotti" name="">
 </p>
@@ -95,8 +95,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 <input class="post_type" type="hidden" value="product" name="post_type_product">
 <input id="_wpnonce" type="hidden" value="2cac6d312d" name="_wpnonce">
 <input type="hidden" value="post_type_product" name="_wp_http_referer">
-
 </form>
+</div>
 							<h2>VARIANTI</h2>
 							<table width="100%" style="border: 1px solid #000; width: 100%;" cellspacing="0" cellpadding="2">
 								<thead >
@@ -106,7 +106,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'woothemes'); ?></th>
                                         <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRICE', 'woothemes'); ?></th>
 
- <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SLUG', 'woothemes'); ?></th>
+ <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('TAGLIA', 'woothemes'); ?></th>
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('STOCK', 'woothemes'); ?></th>
 									</tr>
 								</thead>
@@ -121,25 +121,35 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 									'order'             => 'ASC',
 									'meta_query'        => array(
 																array(
-																	'key'   => '_stock',
-																	'value' => array('', false, null),
+																	'key'     => '_stock',
+																	'value'   => array('', false, null),
 																	'compare' => 'NOT IN'
 																)
 
 
 															)
 								);
+								
+    
+    
 
 								$loop = new WP_Query( $args );
 								while ( $loop->have_posts() ) : $loop->the_post();
 									$product = new WC_Product_Variation( $loop->post->ID );
-								?>
+									
+ 
+ 
+										?>
 									<tr>
 										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->get_title(); ?></td>
 										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo get_the_title( $loop->post->post_parent ); ?></td>
 										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>
                                         <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->price; ?></td>
-				 <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->slug; ?></td>
+				 <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php $taglie = get_the_terms( $product->id, 'pa_taglia');
+
+      foreach ( $taglie as $taglia ) {
+       echo $taglia->name;
+        }  ?></td>
 						<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->stock; ?></td>
 									</tr>
 								<?php
@@ -161,7 +171,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                                        
 <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRICE', 'woothemes'); ?></th>
 
- <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SLUG', 'woothemes'); ?></th>
+ <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('TAGLIA', 'woothemes'); ?></th>
 
 
 <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('STOCK', 'woothemes'); ?></th>
@@ -198,8 +208,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->get_title(); ?></td>
 											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->price; ?></td>
 										
-<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo 
-$product->slug; ?></td>	
+<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php $taglie = get_the_terms( $product->ID, 'pa_taglia');
+
+      foreach ( $taglie as $taglia ) {
+       echo $taglia->name;
+        }  ?></td>	
 
 <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->stock; ?></td>
 										</tr>
@@ -232,7 +245,7 @@ $product->slug; ?></td>
 				}
 				if ( $file == WC_alterinventory::$plugin_basefile ) {
 					$links[] = '<a href="http://www.altertech.it/woocommerce-alter-inventory/" target="_blank" title="' . __( 'Homepage', 'woocommerce-alter-inventory' ) . '">' . __( 'Homepage', 'woocommerce-alter-inventory' ) . '</a>';
-					//$links[] = '<a href="http://wordpress.org/support/plugin/woocommerce-delivery-notes" target="_blank" title="' . __( 'Support', 'woocommerce-delivery-notes' ) . '">' . __( 'Support', 'woocommerce-delivery-notes' ) . '</a>';
+					
 				}
 				return $links;
 			}
