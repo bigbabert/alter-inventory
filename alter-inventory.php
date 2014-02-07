@@ -91,27 +91,30 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 <input id="post-search-input" type="search" value="" name="s">
 <input id="search-submit" class="button" type="submit" value="Cerca Prodotti" name="">
 </p>
-<input class="post_status_page" type="hidden" value="all" name="post_status">
-<input class="post_type" type="hidden" value="product" name="post_type">
+<input class="post_type" type="hidden" value="product" name="post_type_product">
+<input class="post_type" type="hidden" value="product" name="post_type_product">
 <input id="_wpnonce" type="hidden" value="2cac6d312d" name="_wpnonce">
-<input type="hidden" value="post_type" name="_wp_http_referer">
+<input type="hidden" value="post_type_product" name="_wp_http_referer">
 
 </form>
 							<h2>VARIANTI</h2>
 							<table width="100%" style="border: 1px solid #000; width: 100%;" cellspacing="0" cellpadding="2">
 								<thead >
 									<tr>
-							<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;""><?php _e('VARIANTE', 'woothemes'); ?></th>
-							<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRODOTTO', 'woothemes'); ?></th>
-								<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'woothemes'); ?></th>
-                                 <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRICE', 'woothemes'); ?></th>
-								<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('STOCK', 'woothemes'); ?></th>
+										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;""><?php _e('VARIANTE', 'woothemes'); ?></th>
+										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRODOTTO', 'woothemes'); ?></th>
+										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'woothemes'); ?></th>
+                                        <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRICE', 'woothemes'); ?></th>
+
+ <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SLUG', 'woothemes'); ?></th>
+										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('STOCK', 'woothemes'); ?></th>
 									</tr>
 								</thead>
 								<tbody>
-								<?php
+							
+	<?php
 								$args = array(
-									'post_type'         => 'product_variation',
+									'post_type'   => 'product_variation',
 									'post_status'       => 'publish',
 									'posts_per_page'    => -1,
 									'orderby'           => 'title',
@@ -122,8 +125,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 																	'value' => array('', false, null),
 																	'compare' => 'NOT IN'
 																)
+
+
 															)
 								);
+
 								$loop = new WP_Query( $args );
 								while ( $loop->have_posts() ) : $loop->the_post();
 									$product = new WC_Product_Variation( $loop->post->ID );
@@ -133,7 +139,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo get_the_title( $loop->post->post_parent ); ?></td>
 										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>
                                         <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->price; ?></td>
-										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->stock; ?></td>
+				 <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->slug; ?></td>
+						<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->stock; ?></td>
 									</tr>
 								<?php
 								endwhile;
@@ -142,17 +149,22 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 							</table>
                             <style>
 								#reviews {}
-							</style>
+          </style>
                             
                             <h2>PRODOTTI</h2>
                             
                             <table width="100%" style="border: 1px solid #000; width: 100%;" cellspacing="0" cellpadding="2">
 								<thead>
 									<tr>
-							<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRODOTTI', 'woothemes'); ?></th>
-							<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'woothemes'); ?></th>
-                                 <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRICE', 'woothemes'); ?></th>
-								<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('STOCK', 'woothemes'); ?></th>
+										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRODOTTI', 'woothemes'); ?></th>
+										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'woothemes'); ?></th>
+                                       
+<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRICE', 'woothemes'); ?></th>
+
+ <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SLUG', 'woothemes'); ?></th>
+
+
+<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('STOCK', 'woothemes'); ?></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -183,9 +195,13 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 									global $product;
 									?>
 										<tr>
-										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->get_title(); ?></td>
+											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->get_title(); ?></td>
 											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->price; ?></td>
-											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->stock; ?></td>
+										
+<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo 
+$product->slug; ?></td>	
+
+<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->stock; ?></td>
 										</tr>
 									<?php
 									endwhile;
