@@ -131,7 +131,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 								while ( $loop->have_posts() ) : $loop->the_post();
 									$product = new WC_Product_Variation( $loop->post->ID );
 								
-                 //  Display releted attribute terms for variation
+                 //  Display first releted attribute term for variation
 				
 									  
 									$taglia = array_shift($product->get_variation_attributes('pa_taglia'));
