@@ -105,7 +105,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'socute'); ?></th>
                                         <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('LISTINO', 'socute'); ?></th>
                                          <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('VENDITA', 'socute'); ?></th>
-                                      <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('COLORE', 'socute'); ?></th>
+                                     
 
                                     <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('TAGLIA', 'socute'); ?></th>
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('STOCK', 'socute'); ?></th>
@@ -131,8 +131,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 								while ( $loop->have_posts() ) : $loop->the_post();
 									$product = new WC_Product_Variation( $loop->post->ID );
 								
-                 $taglia = $product->get_attribute( 'taglia' );
-				 $colore = $product->get_attribute( 'colore' );
+                 //  Display releted attribute terms for variation
+				
+									  
+									$taglia = array_shift($product->get_variation_attributes('pa_taglia'));
 
  
 										?>
@@ -142,7 +144,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>
                                         <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->regular_price; ?></td>
                                         <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sale_price; ?></td>
-                                        <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $colore ; ?></td>
 				 <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $taglia; ?></td>
 						<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->stock; ?></td>
 									</tr>
