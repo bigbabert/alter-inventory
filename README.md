@@ -1,5 +1,7 @@
-alter-inventory
+Alter Inventory - Woocommerce Plugin
 ===============
+
+First Release 0.7
 
 Manage inventory of products and synchronized with wordpress woocommerce 
 
