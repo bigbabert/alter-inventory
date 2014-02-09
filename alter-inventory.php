@@ -32,23 +32,23 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				// Init settings
 				$this->settings = array(
 					array(
-						'name' => __( 'alter Inventory', 'woocommerce-alter-inventory' ),
+						'name' => __( 'Opzioni del plugin Alter Inventory', 'woocommerce-alter-inventory' ),
 						'type' => 'title',
 						'id' => 'alterinventory_options'
 					),
 					array(
-						'name' => __( 'alter inventory', 'woocommerce-alter-inventory' ),
-						'desc' => __( 'Abilita alter inventory', 'woocommerce-alter-inventory' ),
+						'name' => __( 'Alter Inventory', 'woocommerce-alter-inventory' ),
+						'desc' => __( 'Abilita Alter Inventory', 'woocommerce-alter-inventory' ),
 						'id' => 'alterinventory_enable',
 						'type' => 'checkbox'
 					),
 					array(
 						'name'     => __( 'Messaggio di Errore', 'woocommerce-alter-inventory' ),
-						'desc_tip' => __( 'Inserisci il Messaggio di Errore, sarà mostrato a tutti gli utentisenza autorizzazione per vedere inventory.', 'woocommerce-alter-inventory' ),
+						'desc_tip' => __( 'Inserisci il Messaggio di Errore, sarà mostrato a tutti gli utenti senza autorizzazione per vedere inventory.', 'woocommerce-alter-inventory' ),
 						'id'       => 'alterinventory_error_message',
 						'type'     => 'textarea',
-						'css'      => 'min-width:400px;',
-						'desc'     => __( 'Inserisci il tuo Messaggio di Errore', 'woocommerce-alter-inventory' ),
+						'css'      => 'min-width:500px;',
+						'desc'     => __( 'Inserisci il tuo Messaggio di Errore.', 'woocommerce-alter-inventory' ),
 					),
 					array(
 						'type' => 'sectionend',
@@ -58,20 +58,20 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				
 				// Default options
 				add_option( 'alterinventory_enable', 'yes' );
-				add_option( 'alterinventory_error_message', 'Spiacenti questa sezione è vietata agli utenti!' );
+				add_option( 'alterinventory_error_message', 'Spiacenti questa sezione è vietata agli utenti non autorizzati!' );
 				
 				// My Filter
 	
 				// Admin
 				add_action( 'woocommerce_settings_image_options_after', array( $this, 'admin_settings' ), 20);
-				add_action( 'woocommerce_update_options_inventory', array( $this, 'woocommerce_update_option' ) );
+				add_action( 'woocommerce_update_alterinventory_options', array( $this, 'update_woocommerce_term_meta' ) );
 				
 			}			function plugin_init() {
 				if ( $this->alterinventory_enabled ) {
 					function get_inventory() {
 						$options = get_option('alterinventory_options');
-						$out = (!isset($options['errormessage_template']) || $options['errormessage_template']=="") ? 'Spiacenti questa sezione è vietata agli utenti!' : $options['errormessage_template'];
-						$out = get_option('alterinventory_error_message', 'Spiacenti questa sezione è vietata agli utenti!' );
+						$out = (!isset($options['errormessage_template']) || $options['errormessage_template']=="") ? 'Spiacenti questa sezione è vietata agli utenti non autorizzati!' : $options['errormessage_template'];
+						$out = get_option('alterinventory_error_message', 'Spiacenti questa sezione è vietata agli utenti non autorizzati!' );
 						$user = wp_get_current_user();
 						if ( empty( $user->ID ) ) {
 								echo $out;
@@ -82,7 +82,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 							
 
 ?>
-
 
 <div align="right">
 <form id="posts-filter" method="get" action="http://www.dev.web.altertech.it/pinup/">
@@ -101,13 +100,15 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 							<table width="100%" style="border: 1px solid #000; width: 100%;" cellspacing="0" cellpadding="2">
 								<thead >
 									<tr>
-										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;""><?php _e('VARIANTE', 'woothemes'); ?></th>
-										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRODOTTO', 'woothemes'); ?></th>
-										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'woothemes'); ?></th>
-                                        <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRICE', 'woothemes'); ?></th>
+										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;""><?php _e('VARIANTE', 'socute'); ?></th>
+										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRODOTTO', 'socute'); ?></th>
+										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'socute'); ?></th>
+                                        <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('LISTINO', 'socute'); ?></th>
+                                         <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('VENDITA', 'socute'); ?></th>
+                                      <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('COLORE', 'socute'); ?></th>
 
- <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('TAGLIA', 'woothemes'); ?></th>
-										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('STOCK', 'woothemes'); ?></th>
+                                    <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('TAGLIA', 'socute'); ?></th>
+										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('STOCK', 'socute'); ?></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -117,17 +118,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 									'post_type'   => 'product_variation',
 									'post_status'       => 'publish',
 									'posts_per_page'    => -1,
-									'orderby'           => 'title',
+									'orderby'           => '_sku',
 									'order'             => 'ASC',
-									'meta_query'        => array(
-																array(
-																	'key'     => '_stock',
-																	'value'   => array('', false, null),
-																	'compare' => 'NOT IN'
-																)
-
-
-															)
+												
+													
 								);
 								
     
@@ -136,20 +130,20 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 								$loop = new WP_Query( $args );
 								while ( $loop->have_posts() ) : $loop->the_post();
 									$product = new WC_Product_Variation( $loop->post->ID );
-									
- 
+								
+                 $taglia = $product->get_attribute( 'taglia' );
+				 $colore = $product->get_attribute( 'colore' );
+
  
 										?>
 									<tr>
 										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->get_title(); ?></td>
-										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo get_the_title( $loop->post->post_parent ); ?></td>
+										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo get_the_title( $loop->post->                                     post_parent ); ?></td>
 										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>
-                                        <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->price; ?></td>
-				 <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php $taglie = get_the_terms( $product->id, 'pa_taglia');
-
-      foreach ( $taglie as $taglia ) {
-       echo $taglia->name;
-        }  ?></td>
+                                        <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->regular_price; ?></td>
+                                        <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sale_price; ?></td>
+                                        <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $colore ; ?></td>
+				 <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $taglia; ?></td>
 						<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->stock; ?></td>
 									</tr>
 								<?php
@@ -166,15 +160,15 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                             <table width="100%" style="border: 1px solid #000; width: 100%;" cellspacing="0" cellpadding="2">
 								<thead>
 									<tr>
-										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRODOTTI', 'woothemes'); ?></th>
-										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'woothemes'); ?></th>
+										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRODOTTI', 'socute'); ?></th>
+										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'socute'); ?></th>
                                        
-<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRICE', 'woothemes'); ?></th>
+<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRICE', 'socute'); ?></th>
 
- <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('TAGLIA', 'woothemes'); ?></th>
+ <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('TAGLIA', 'socute'); ?></th>
 
 
-<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('STOCK', 'woothemes'); ?></th>
+<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('STOCK', 'socute'); ?></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -208,11 +202,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->get_title(); ?></td>
 											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->price; ?></td>
 										
-<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php $taglie = get_the_terms( $product->ID, 'pa_taglia');
-
-      foreach ( $taglie as $taglia ) {
-       echo $taglia->name;
-        }  ?></td>	
+<td style="text-align:left; border: 1px solid #000; padding: 6px;"></td>	
 
 <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->stock; ?></td>
 										</tr>
@@ -224,7 +214,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					<?php	
 						   }
 					}
-					add_shortcode( 'alterinventory', 'get_inventory' );
+					add_shortcode( 'alterinventory', 'get_inventory','manage_inventory' );
 				}
 			}
 			
