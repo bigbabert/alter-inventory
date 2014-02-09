@@ -4,7 +4,7 @@
 Plugin Name: WooCommerce - alter Inventory
 Plugin URI: http://www.altertech.it/woocommerce-alter-inventory/
 Description: This plugin provides a template that can be applied to a page in order to show a full inventory of products in WooCommerce.
-Version: 0.5
+Version: 0.5.1
 Author: Bigbabert
 Author URI: http://www.blog.altertech.it
 
