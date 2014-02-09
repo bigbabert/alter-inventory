@@ -3,8 +3,11 @@
 /*
 Plugin Name: WooCommerce - alter Inventory
 Plugin URI: http://www.altertech.it/woocommerce-alter-inventory/
-Description: This plugin provides a template that can be applied to a page in order to show a full inventory of products in WooCommerce.
-Version: 0.5.1
+Description: This plugin display all your Woocommerce inventory, products and variable products as variation, in user friendly mode on front-end in a reserved page, you can create this page simply adding a short
+code, [alterinventory], to a new page. Powerful improvement coming soon: manage your products, add and remove product with barcode input area and fisic shop front-end page.
+Stay tuned: http://www.altertech.it/woocommerce-alter-inventory/
+Tested on Wordpress 3.8.1 and Woocommerce 2.0.2 
+Version: 0.7
 Author: Bigbabert
 Author URI: http://www.blog.altertech.it
 
