@@ -83,10 +83,26 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 							
 
 ?> 
-<div  style="width:200px; margin-left:83%;">
+<div>
+<div  style="width:400px;">
+<form id="posts-filter" method="get" action="http://www.dev.web.altertech.it/pinup/" >
+<p class="search-box">
+<label class="screen-reader-text" for="post-search-input">GESTISCI INVENTARIO:</label>
+<input id="post-search-input" type="search" value="" name="s">
+<input id="search-submit" class="button" type="submit" value="Cerca Prodotti" name=""> <input id="search-submit" class="button" type="submit" value="INSERISCI" name=""> <input id="search-submit" class="button" type="submit" value="ELIMINA" name="">
+</p>
+<input class="post_status_page" type="hidden" value="all" name="post_status">
+<input class="post_type" type="hidden" value="product" name="post_type">
+<input id="_wpnonce" type="hidden" value="2cac6d312d" name="_wpnonce">
+<input type="hidden" value="post_type" name="_wp_http_referer">
+</form>
+</div>
+
+
+<div  style="width:200px; margin-left:81%; margin-top:-134px; ">
 <form id="posts-filter" method="get" action="http://www.dev.web.altertech.it/pinup/" target="_blank">
 <p class="search-box">
-<label class="screen-reader-text" for="post-search-input">Cerca nel Catalogo:</label>
+<label class="screen-reader-text" for="post-search-input">CERCA NEL CATALOGO:</label>
 <input id="post-search-input" type="search" value="" name="s">
 <input id="search-submit" class="button" type="submit" value="Cerca Prodotti" name="">
 </p>
@@ -95,6 +111,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 <input id="_wpnonce" type="hidden" value="2cac6d312d" name="_wpnonce">
 <input type="hidden" value="post_type" name="_wp_http_referer">
 </form>
+</div>
 </div>
 							<h2>VARIANTI</h2>
 							<table width="100%" style="border: 1px solid #000; width: 100%;" cellspacing="0" cellpadding="2">
