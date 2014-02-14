@@ -9,7 +9,7 @@ Version: 0.8
 Author: Bigbabert
 Author URI: http://www.blog.altertech.it
 
-	Copyright: © 2013 Alberto Cocchiara (email : bigbabertgmail.com)
+	Copyright: © 2014 Alberto Cocchiara (email : bigbabertgmail.com)
 	License: GNU General Public License v3.0
 	License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
