@@ -118,6 +118,8 @@ div>
 							<table width="100%" style="border: 1px solid #000; width: 100%;" cellspacing="0" cellpadding="2">
 								<thead >
 									<tr>
+                                      <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('IMAGE', 'woothemes'); ?></th>
+
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;""><?php _e('VARIANTE', 'woothemes'); ?></th>
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRODOTTO', 'woothemes'); ?></th>
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'woothemes'); ?></th>
@@ -163,12 +165,13 @@ div>
  
 										?>
 									<tr>
-										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->get_title(); ?></td>
-										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo get_the_title( $loop->post->                                     post_parent ); ?></td>
-										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>
-                                        <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->regular_price; ?></td>
-                                        <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sale_price; ?></td>				                <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $colore; ?></td>
-				 <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $taglia; ?></td>
+<td  class="thumb column-thumb" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->get_image( $size ='shop_thumbnail' ); ?></td>
+				<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->get_title(); ?></td>
+				<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo get_the_title( $loop->post->post_parent ); ?></td>
+				<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>
+                <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->regular_price; ?></td>
+                <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sale_price; ?></td>				                <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $colore; ?></td>
+				<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $taglia; ?></td>
 						<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->stock; ?></td>
 									</tr>
 								<?php
@@ -177,16 +180,20 @@ div>
 								</tbody>
 							</table>
                             <style>
-								#header { display:none; }
-          </style>
+								#header { display:none; }								
+								.hentry img { height: auto; max-width: 50%;}
+						    </style>
                             
                             <h2>PRODOTTI</h2>
                             
                             <table width="100%" style="border: 1px solid #000; width: 100%;" cellspacing="0" cellpadding="2">
 								<thead>
 									<tr>
-										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRODOTTI', 'woothemes'); ?></th>
-										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'woothemes'); ?></th>
+ <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('IMAGE', 'woothemes'); ?></th>
+
+<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRODOTTI', 'woothemes'); ?></th>
+
+<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'woothemes'); ?></th>
                                        
 <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('LISTINO', 'woothemes'); ?></th>
 
@@ -224,6 +231,7 @@ div>
 									global $product;
 									?>
 										<tr>
+<td  class="thumb column-thumb" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->get_image( $size ='shop_thumbnail' ); ?></td>
 <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->get_title(); ?></td>
 <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>											
 <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->price; ?></td>
