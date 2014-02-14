@@ -176,7 +176,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 								</tbody>
 							</table>
                             <style>
-								#reviews {}
+								#header { display:none; }
           </style>
                             
                             <h2>PRODOTTI</h2>
