@@ -3,8 +3,9 @@
 /*
 Plugin Name: WooCommerce - Alter Inventory
 Plugin URI: http://www.altertech.it/woocommerce-alter-inventory/
-Description: This plugin display all your Woocommerce inventory, products and variable products as variation, in user friendly mode on front-end in a reserved page, you can create this page simply adding a shortcode [alterinventory] to a new page. Powerful improvement coming soon: manage your products, add and remove product with barcode input area and fisic shop front-end page. Stay tuned: http://www.altertech.it/woocommerce-alter-inventory/                                                                                              Tested on Wordpress 3.8.1 and Woocommerce 2.0.2 
-Version: 0.7.1
+Description: This plugin display all your Woocommerce inventory products and variable products as variation, in user friendly mode on front-end in a reserved page, you can create this page simply adding a shortcode [alterinventory] to a new page.To enable 'Colore' and 'Taglia' column's you need create two default attributes: 'colore' and 'taglia', in next version we able to set this value in settings tab. Powerful improvement coming soon: manage your products, add and remove product with barcode input area and fisic shop front-end page.
+Tested on Wordpress 3.8.1 and Woocommerce 2.0.2 
+Version: 0.8
 Author: Bigbabert
 Author URI: http://www.blog.altertech.it
 
@@ -81,20 +82,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 							
 							
 
-?>
+?> 
 
-<div align="right">
-<form id="posts-filter" method="get" action="http://www.dev.web.altertech.it/pinup/">
-<p class="search-box">
-<label class="screen-reader-text" for="post-search-input"></label>
-<input id="post-search-input" type="search" value="" name="s">
-<input id="search-submit" class="button" type="submit" value="Cerca Prodotti" name="">
-</p>
-<input class="post_type" type="hidden" value="product" name="post_type_product">
-<input class="post_type" type="hidden" value="product" name="post_type_product">
-<input id="_wpnonce" type="hidden" value="2cac6d312d" name="_wpnonce">
-<input type="hidden" value="post_type_product" name="_wp_http_referer">
-</form>
+<div  style="width:200px; margin-left:83%;">
+<?php echo get_product_search_form(); ?>
 </div>
 							<h2>VARIANTI</h2>
 							<table width="100%" style="border: 1px solid #000; width: 100%;" cellspacing="0" cellpadding="2">
@@ -105,7 +96,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'woothemes'); ?></th>
                                         <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('LISTINO', 'woothemes'); ?></th>
                                          <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('VENDITA', 'woothemes'); ?></th>
-                                     
+                                       <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('COLORE', 'woothemes'); ?></th>
+
 
                                     <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('TAGLIA', 'woothemes'); ?></th>
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('STOCK', 'woothemes'); ?></th>
@@ -115,27 +107,32 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 							
 	<?php
 								$args = array(
-									'post_type'   => 'product_variation',
-									'post_status'       => 'publish',
-									'posts_per_page'    => -1,
-									'orderby'           => '_sku',
-									'order'             => 'ASC',
-												
-													
-								);
+                                           'post_type'         => 'product_variation',
+                                           'post_status'       => 'publish',
+                                           'posts_per_page'    => -1,
+                                           'orderby'           => '_sku',
+                                           'order'             => 'DESC',
+                                           'meta_query'        => array(
+                                           array(
+                                           'key'   => '_stock',
+                                           'value' => array('', false, null),
+                                           'compare' => 'NOT IN'
+                                                                       )
+                                                       )
+                                            );
+                  //	Loop Product Variation 
 								
-    
-    
-
-								$loop = new WP_Query( $args );
+								
+								$loop = new WP_Query( $args);
 								while ( $loop->have_posts() ) : $loop->the_post();
 									$product = new WC_Product_Variation( $loop->post->ID );
-								
-                 //  Display first releted attribute term for variation
+									
 				
-									  
-									$taglia = array_shift($product->get_variation_attributes('pa_taglia'));
+                  //  Display first releted attribute term for variation
 
+                     $colore = get_post_meta( get_the_ID(), 'attribute_pa_colore', true );
+
+                     $taglia = get_post_meta( get_the_ID(), 'attribute_pa_taglia', true );
  
 										?>
 									<tr>
@@ -143,7 +140,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo get_the_title( $loop->post->                                     post_parent ); ?></td>
 										<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>
                                         <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->regular_price; ?></td>
-                                        <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sale_price; ?></td>
+                                        <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sale_price; ?></td>				                <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $colore; ?></td>
 				 <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $taglia; ?></td>
 						<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->stock; ?></td>
 									</tr>
@@ -164,9 +161,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRODOTTI', 'woothemes'); ?></th>
 										<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('SKU', 'woothemes'); ?></th>
                                        
-<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('PRICE', 'woothemes'); ?></th>
+<th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('LISTINO', 'woothemes'); ?></th>
 
- <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('TAGLIA', 'woothemes'); ?></th>
+ <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('VENDITA', 'woothemes'); ?></th>
 
 
 <th scope="col" style="text-align:left; border: 1px solid #000; padding: 6px;"><?php _e('STOCK', 'woothemes'); ?></th>
@@ -200,11 +197,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 									global $product;
 									?>
 										<tr>
-											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->get_title(); ?></td>
-											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>											<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->price; ?></td>
-										
-<td style="text-align:left; border: 1px solid #000; padding: 6px;"></td>	
-
+<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->get_title(); ?></td>
+<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sku; ?></td>											
+<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->price; ?></td>
+<td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->sale_price; ?></td>	
 <td style="text-align:left; border: 1px solid #000; padding: 6px;"><?php echo $product->stock; ?></td>
 										</tr>
 									<?php
