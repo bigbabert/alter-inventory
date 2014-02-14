@@ -83,9 +83,18 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 							
 
 ?> 
-
 <div  style="width:200px; margin-left:83%;">
-<?php echo get_product_search_form(); ?>
+<form id="posts-filter" method="get" action="http://www.dev.web.altertech.it/pinup/" target="_blank">
+<p class="search-box">
+<label class="screen-reader-text" for="post-search-input">Cerca nel Catalogo:</label>
+<input id="post-search-input" type="search" value="" name="s">
+<input id="search-submit" class="button" type="submit" value="Cerca Prodotti" name="">
+</p>
+<input class="post_status_page" type="hidden" value="all" name="post_status">
+<input class="post_type" type="hidden" value="product" name="post_type">
+<input id="_wpnonce" type="hidden" value="2cac6d312d" name="_wpnonce">
+<input type="hidden" value="post_type" name="_wp_http_referer">
+</form>
 </div>
 							<h2>VARIANTI</h2>
 							<table width="100%" style="border: 1px solid #000; width: 100%;" cellspacing="0" cellpadding="2">
