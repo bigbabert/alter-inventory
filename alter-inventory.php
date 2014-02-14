@@ -89,7 +89,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 <p class="search-box">
 <label class="screen-reader-text" for="post-search-input">GESTISCI INVENTARIO:</label>
 <input id="post-search-input" type="search" value="" name="s">
-<input id="search-submit" class="button" type="submit" value="Cerca Prodotti" name=""> <input id="search-submit" class="button" type="submit" value="INSERISCI" name=""> <input id="search-submit" class="button" type="submit" value="ELIMINA" name="">
+<input id="search-submit" class="button" type="submit" value="Cerca Prodotto" name=""> <input id="search-submit" class="button" type="submit" value="INSERISCI" name=""> <input id="search-submit" class="button" type="submit" value="ELIMINA" name="">
 </p>
 <input class="post_status_page" type="hidden" value="all" name="post_status">
 <input class="post_type" type="hidden" value="product" name="post_type">
