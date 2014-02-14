@@ -83,7 +83,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 							
 
 ?> 
-div>
+<div>
 <h1 align="center">WOOCOMMERCE ALTER INVENTORY MANAGEMENT</h1>
 <div  style="width:400px;">
 <form id="posts-filter" method="get" action="http://www.dev.web.altertech.it/pinup/" >
@@ -181,7 +181,7 @@ div>
 							</table>
                             <style>
 								#header { display:none; }								
-								.hentry img { height: auto; max-width: 50%;}
+								.hentry img { height: auto; max-width: 35%;}
 						    </style>
                             
                             <h2>PRODOTTI</h2>
