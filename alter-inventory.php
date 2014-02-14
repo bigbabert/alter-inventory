@@ -83,13 +83,14 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 							
 
 ?> 
-<div>
+div>
+<h1 align="center">WOOCOMMERCE ALTER INVENTORY MANAGEMENT</h1>
 <div  style="width:400px;">
 <form id="posts-filter" method="get" action="http://www.dev.web.altertech.it/pinup/" >
 <p class="search-box">
 <label class="screen-reader-text" for="post-search-input">GESTISCI INVENTARIO:</label>
 <input id="post-search-input" type="search" value="" name="s">
-<input id="search-submit" class="button" type="submit" value="Cerca Prodotto" name=""> <input id="search-submit" class="button" type="submit" value="INSERISCI" name=""> <input id="search-submit" class="button" type="submit" value="ELIMINA" name="">
+<input id="search-submit" class="button" type="submit" value="Cerca Prodotto" style="background-color:#09F" name=""> <input id="search-submit" class="button" type="submit" value="INSERISCI" style="background-color:#0F3" name=""> <input id="search-submit" class="button" type="submit" value="ELIMINA" style="background-color:#F30" name="">
 </p>
 <input class="post_status_page" type="hidden" value="all" name="post_status">
 <input class="post_type" type="hidden" value="product" name="post_type">
