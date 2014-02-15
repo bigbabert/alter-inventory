@@ -2,7 +2,7 @@
 === Alter Inventory - Woocommerce Plugin ===
 Contributors: Bigbabert, Mirko G.
 Donate link: http://www.altertech.it/
-Tags: woocommerce, spam
+Tags: woocommerce, inventory, product variations
 Requires at least: 3.6.1
 Tested up to: 3.8.1
 Stable tag: 0.8
