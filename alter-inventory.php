@@ -180,7 +180,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 								</tbody>
 							</table>
                             <style>
+<<<<<<< HEAD
 								 #header { display:none; }
+=======
+								#header { display:none; }								
+>>>>>>> a694eae96dee452c11ab43248d2159ef77657adb
 								.hentry img { height: auto; max-width: 35%;}
 						    </style>
                             
