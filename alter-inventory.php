@@ -85,7 +85,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 ?> 
 <div>
 <h1 align="center">WOOCOMMERCE ALTER INVENTORY MANAGEMENT</h1>
-<div  style="width:400px;">
+<div  style="width:400px; display:none;">
 <form id="posts-filter" method="get" action="http://www.dev.web.altertech.it/pinup/" >
 <p class="search-box">
 <label class="screen-reader-text" for="post-search-input">GESTISCI INVENTARIO:</label>
@@ -100,7 +100,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 </div>
 
 
-<div  style="width:200px; margin-left:81%; margin-top:-134px; ">
+<div  style="width:200px; margin-left:81%; margin-top:auto; ">
 <form id="posts-filter" method="get" action="http://www.dev.web.altertech.it/pinup/" target="_blank">
 <p class="search-box">
 <label class="screen-reader-text" for="post-search-input">CERCA NEL CATALOGO:</label>
