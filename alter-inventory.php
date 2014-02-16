@@ -4,7 +4,7 @@
 Plugin Name: WooCommerce - Alter Inventory
 Plugin URI: http://www.altertech.it/woocommerce-alter-inventory/
 Description: This plugin display all your Woocommerce inventory products and variable products as variation, in user friendly mode on front-end in a reserved page, you can create this page simply adding a shortcode [alterinventory] to a new page.To enable 'Colore' and 'Taglia' column's you need create two default attributes: 'colore' and 'taglia', in next version we able to set this value in settings tab. Powerful improvement coming soon: manage your products, add and remove product with barcode input area and fisic shop front-end page.
-Tested on Wordpress 3.8.1 and Woocommerce 2.0.2 
+Tested on Wordpress 3.8.1 and Woocommerce 2.1.2 
 Version: 0.8
 Author: Bigbabert
 Author URI: http://www.blog.altertech.it
@@ -83,14 +83,14 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 							
 
 ?> 
-div>
+<div>
 <h1 align="center">WOOCOMMERCE ALTER INVENTORY MANAGEMENT</h1>
 <div  style="width:400px;">
 <form id="posts-filter" method="get" action="http://www.dev.web.altertech.it/pinup/" >
 <p class="search-box">
 <label class="screen-reader-text" for="post-search-input">GESTISCI INVENTARIO:</label>
 <input id="post-search-input" type="search" value="" name="s">
-<input id="search-submit" class="button" type="submit" value="Cerca Prodotto" style="background-color:#09F" name=""> <input id="search-submit" class="button" type="submit" value="INSERISCI" style="background-color:#0F3" name=""> <input id="search-submit" class="button" type="submit" value="ELIMINA" style="background-color:#F30" name="">
+<input id="search-submit" class="button" type="submit" value="Cerca Prodotto" style="background-color:#09F" name=""> <input id="search-submit" class="button" type="submit" value= "INSERISCI" style="background-color:#0F3; text-transform:capitalize;" name=""> <input id="search-submit" class="button" type="submit" value="ELIMINA" style="background-color:#F30" name="">
 </p>
 <input class="post_status_page" type="hidden" value="all" name="post_status">
 <input class="post_type" type="hidden" value="product" name="post_type">
@@ -139,7 +139,7 @@ div>
                                            'post_type'         => 'product_variation',
                                            'post_status'       => 'publish',
                                            'posts_per_page'    => -1,
-                                           'orderby'           => '_sku',
+                                           'orderby'           => 'sku',
                                            'order'             => 'DESC',
                                            'meta_query'        => array(
                                            array(
@@ -180,8 +180,8 @@ div>
 								</tbody>
 							</table>
                             <style>
-								#header { display:none; }								
-								.hentry img { height: auto; max-width: 50%;}
+								 #header { display:none; }
+								.hentry img { height: auto; max-width: 35%;}
 						    </style>
                             
                             <h2>PRODOTTI</h2>
