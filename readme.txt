@@ -71,7 +71,7 @@ That's the way:
 * Send a mail to bigbabert@gmail.com with object ‘alterinventory’
 
 == Upgrade notice ==
-
+= 1.1 =
 = 0.8.0 =
 
 First Release
