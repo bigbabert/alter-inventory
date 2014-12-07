@@ -81,7 +81,6 @@ First Release
 If you are new to WordPress : http://codex.wordpress.org/Managing_Plugins#Installing_Plugins.
 
 
-
 First Release 0.7
 
 Manage inventory of products and synchronized with wordpress woocommerce 
